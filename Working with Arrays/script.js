@@ -182,10 +182,21 @@ const checkDogs = function (dogsJulia, dogsKate) {
 const julia1 = [3, 5, 2, 12, 7];
 const kate1 = [4, 1, 15, 8, 3];
 checkDogs(julia1, kate1);
-*/
+
 // the map method
 
 const eurToUsd = 1.1;
 const movementUsd = movements.map(mov => mov * eurToUsd);
 console.log(movements);
 console.log(movementUsd);
+
+*/
+
+const deposits = movements.filter(function (mov) {
+  return mov > 0;
+});
+console.log(movements);
+console.log(deposits);
+
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
