@@ -90,7 +90,12 @@ const createUsernames = function (accs) {
   });
 };
 createUsernames(accounts);
-console.log(accounts);
+
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance}€`;
+};
+calcDisplayBalance(account2.movements);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -190,8 +195,6 @@ const movementUsd = movements.map(mov => mov * eurToUsd);
 console.log(movements);
 console.log(movementUsd);
 
-*/
-
 const deposits = movements.filter(function (mov) {
   return mov > 0;
 });
@@ -200,3 +203,21 @@ console.log(deposits);
 
 const withdrawals = movements.filter(mov => mov < 0);
 console.log(withdrawals);
+// THE REDUCE METHOD
+// ACCUMULATOR -> SNOWBALL
+const balance = movements.reduce(function (acc, cur, i, arr) {
+  return acc + cur;
+});
+console.log(balance);
+*/
+
+//challenge 2
+
+const calcAverageHumanAge = function (ages) {
+  const humanAges = ages.map(age => (age <= 2 ? 2 * age : 16 + age * 4));
+  const adults = humanAges.filter(age => age >= 18);
+  const average = adults.reduce((acc, age) => acc + age, 0) / adults.length;
+  return average;
+};
+
+console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
