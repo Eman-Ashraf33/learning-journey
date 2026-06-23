@@ -80,7 +80,17 @@ const displyMovements = function (movements) {
   });
 };
 displyMovements(account1.movements);
-
+const createUsernames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+createUsernames(accounts);
+console.log(accounts);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -155,8 +165,6 @@ currenciesUnique.forEach(function (value, _, map) {
   console.log(`${value}: ${value}`);
 });
 
-*/
-
 //challenge 1
 
 const checkDogs = function (dogsJulia, dogsKate) {
@@ -174,3 +182,10 @@ const checkDogs = function (dogsJulia, dogsKate) {
 const julia1 = [3, 5, 2, 12, 7];
 const kate1 = [4, 1, 15, 8, 3];
 checkDogs(julia1, kate1);
+*/
+// the map method
+
+const eurToUsd = 1.1;
+const movementUsd = movements.map(mov => mov * eurToUsd);
+console.log(movements);
+console.log(movementUsd);
