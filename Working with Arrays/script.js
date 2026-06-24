@@ -95,7 +95,33 @@ const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = `${balance}€`;
 };
-calcDisplayBalance(account2.movements);
+calcDisplayBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const expenses = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + Math.abs(mov), 0);
+  labelSumOut.textContent = `${expenses}€`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => deposit * 0.012)
+  .filter((int, i, arr) => {
+    // console.log(arr);
+    return int >= 1;
+  })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
+
+calcDisplaySummary(account1.movements);
+
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -209,7 +235,7 @@ const balance = movements.reduce(function (acc, cur, i, arr) {
   return acc + cur;
 });
 console.log(balance);
-*/
+
 
 //challenge 2
 
@@ -220,4 +246,23 @@ const calcAverageHumanAge = function (ages) {
   return average;
 };
 
+
+
+
+const euroToUsd = 1.1;
+const totalDepositesUSD = movements
+  .filter(mov => mov > 0)
+  .map(mov => mov * euroToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(totalDepositesUSD);
+
+const calcAverageHumanAge = function (ages) {
+  return ages
+ .map(age => (age <= 2 ? 2 * age : 16 + age * 4))
+ .filter(age => age >= 18)
+ .reduce((acc, age , i , arr) => acc + age / arr.length,0)
+ 
+};
+
 console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
+*/
