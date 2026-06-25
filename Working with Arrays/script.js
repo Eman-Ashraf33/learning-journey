@@ -67,9 +67,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displyMovements = function (movements) {
+const displyMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i) {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${mov > 0 ? 'deposit' : 'withdrawal'}">${i + 1} ${mov > 0 ? 'deposit' : 'withdrawal'}</div>
@@ -184,6 +187,13 @@ btnClose.addEventListener('click', function (e) {
   }
   inputCloseUsername.value = inputClosePin.value = '';
   labelWelcome.textContent = 'Log in to get started';
+});
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  displyMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
 
 /////////////////////////////////////////////////
@@ -447,4 +457,65 @@ console.log(breedsWeight);
 
 const breedsActivities = breeds.some(b => b.activities.length >= 3);
 console.log(breedsActivities);
+
+
+// SORT
+//STRING
+const owners = ['Eman', 'omar', 'Ahmed', 'Doaa', 'Mariam'];
+console.log(owners.sort());
+
+//NUMBERS
+console.log(movements);
+
+//return < 0 , A, B
+//return > 0  , B, A
+movements.sort((a, b) => {
+  if (a > b) return 1;
+  if (b > a) return -1;
+});
+console.log(movements);
+
+
+//Array Grouping
+
+console.log(movements);
+
+const groupedMovements = Object.groupBy(movements, movement =>
+  movement > 0 ? 'deposits' : 'whithdrawals',
+);
+console.log(groupedMovements);
+
+const groupedByActive = Object.groupBy(accounts, acc => {
+  const movementCount = acc.movements.length;
+  if (movementCount >= 8) return 'very active';
+  if (movementCount >= 4) return 'active';
+  if (movementCount >= 1) return 'moderate';
+  return 'inactive';
+});
+
+console.log(groupedByActive);
+
+
+//Emprty arrays + fill method
+const x = new Array(7);
+console.log(x);
+
+x.fill(1, 3, 5);
+console.log(x);
+
+x.fill(23, 2, 6);
+console.log(x);
+
+//Arry.from
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+//non-destructive alternative : toReversed , toSorted , toSpliced , with
+const arr = [1, 2, 3, 4, 5];
+const reversedArr = arr.toReversed();
+console.log(reversedArr);
+console.log(arr);
 */
