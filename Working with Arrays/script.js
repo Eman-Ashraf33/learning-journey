@@ -159,6 +159,16 @@ btnTransfer.addEventListener('click', function (e) {
     updateUI(currentAccount);
   }
 });
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    currentAccount.movements.push(amount);
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
 
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
@@ -340,4 +350,101 @@ const largeMovement = movements.findLast(mov =>
 Math.abs(mov)>100
 );
 console.log(`Your lastet large movment ${largeMovement}`)
+console.log(movements.includes(-130));
+
+//some
+
+const anyDeposits = movements.some(mov => mov > 1500);
+console.log(anyDeposits);
+
+//EVERY
+
+console.log(movements.every(mov => mov > 0));
+
+//flat
+
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat());
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(2));
+
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements.flat().reduce((acc, mov) => acc + mov, 0));
+
+
+//challenge 4
+
+const breeds = [
+  {
+    breed: 'German Shepherd',
+    averageWeight: 32,
+    activities: ['fetch', 'swimming'],
+  },
+  {
+    breed: 'Dalmatian',
+    averageWeight: 24,
+    activities: ['running', 'fetch', 'agility'],
+  },
+  {
+    breed: 'Labrador',
+    averageWeight: 28,
+    activities: ['swimming', 'fetch'],
+  },
+  {
+    breed: 'Beagle',
+    averageWeight: 12,
+    activities: ['digging', 'fetch'],
+  },
+  {
+    breed: 'Husky',
+    averageWeight: 26,
+    activities: ['running', 'agility', 'swimming'],
+  },
+  {
+    breed: 'Bulldog',
+    averageWeight: 36,
+    activities: ['sleeping'],
+  },
+  {
+    breed: 'Poodle',
+    averageWeight: 18,
+    activities: ['agility', 'fetch'],
+  },
+];
+
+//1.
+const huskyWeight = breeds.find(h => h.breed === 'Husky').averageWeight;
+console.log(huskyWeight);
+
+//2.
+const dogBothActivities = breeds.find(
+  h => h.activities.includes('fetch') && h.activities.includes('running'),
+);
+console.log(dogBothActivities);
+
+//3.
+const allActivities = breeds.flatMap(breeds => breeds.activities);
+console.log(allActivities);
+
+//4.
+const uniqueActivities = [...new Set(allActivities)];
+console.log(uniqueActivities);
+
+//5.
+const activitiesSwimminng = breeds
+  .filter(b => b.activities.includes('swimming'))
+  .flatMap(b => b.activities)
+  .filter(act => act !== 'swimming');
+console.log(activitiesSwimminng);
+
+//6.
+
+const breedsWeight = breeds.every(b => b.averageWeight >= 10);
+console.log(breedsWeight);
+
+//7.
+
+const breedsActivities = breeds.some(b => b.activities.length >= 3);
+console.log(breedsActivities);
 */
