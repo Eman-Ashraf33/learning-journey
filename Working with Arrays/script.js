@@ -518,4 +518,58 @@ const arr = [1, 2, 3, 4, 5];
 const reversedArr = arr.toReversed();
 console.log(reversedArr);
 console.log(arr);
+
+
+// ARRAY Methods Practice
+
+//1.
+const bankDepositSome = accounts
+  .flatMap(acc => acc.movements)
+  .filter(movement => movement > 0)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(bankDepositSome);
+
+//2.
+const countDeposit = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 1000).length;
+console.log(countDeposit);
+
+//3.
+const sum = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, cur) => {
+      cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+      return sums;
+    },
+    { deposits: 0, withdrawals: 0 },
+  );
+
+console.log(sum);
+
 */
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John', 'Leo'] },
+
+  { weight: 18, curFood: 244, owners: ['Joe'] },
+
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+//1.
+
+dogs.forEach(dog => (dog.recFood = Math.floor(dog.weight ** 0.75 * 28)));
+console.log(dogs);
+
+//2.
+const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(
+  `Sarah's dog eats too ${
+    dogSarah.curFood > dogSarah.recFood ? 'much' : 'little'
+  }`,
+);
