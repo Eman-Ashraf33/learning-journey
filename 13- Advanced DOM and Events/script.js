@@ -27,7 +27,7 @@ document.addEventListener('keydown', function (e) {
 });
 
 //////////////////////////////////selecting elements//////////////////////
-
+/*
 console.log(document.documentElement);
 console.log(document.head);
 console.log(document.body);
@@ -90,4 +90,13 @@ console.log(logo.getAttribute('src'));
 console.log(logo.dataset.versionNumber);
 
 //classes
-console.log(logo.classList.add('c', 'j'));
+console.log(logo.classList.add('c', 'j'))
+*/
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+});
