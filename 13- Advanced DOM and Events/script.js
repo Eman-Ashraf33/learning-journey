@@ -4,6 +4,8 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
 const openModal = function () {
   modal.classList.remove('hidden');
@@ -23,6 +25,48 @@ overlay.addEventListener('click', closeModal);
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
     closeModal();
+  }
+});
+
+//Button scrolling
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+  console.log('current scroll (x/y)', Window.pageYOffset, pageXOffset);
+  console.log(
+    'height/width viewport',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth,
+  );
+
+  //Scrolling
+  //window.scrollTo(s1coords.left,s1coords.top);
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+//////////////////////////////
+// Page navigation
+
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+//1.Add event listener to common parent elment
+//2. Determine what element originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  //Matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
 
@@ -93,24 +137,6 @@ console.log(logo.dataset.versionNumber);
 console.log(logo.classList.add('c', 'j'))
 */
 
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
-
-btnScrollTo.addEventListener('click', function (e) {
-  const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
-  console.log('current scroll (x/y)', Window.pageYOffset, pageXOffset);
-  console.log(
-    'height/width viewport',
-    document.documentElement.clientHeight,
-    document.documentElement.clientWidth,
-  );
-
-  //Scrolling
-  //window.scrollTo(s1coords.left,s1coords.top);
-  section1.scrollIntoView({ behavior: 'smooth' });
-});
-
 // Types of Events and Event Handlers
 /*
 const h1 = document.querySelector('h1');
@@ -122,7 +148,7 @@ const alertH1 = function (e) {
 h1.addEventListener('mouseenter', alertH1);
 
 setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
-*/
+
 
 //Event Propagation in Practice
 
@@ -138,7 +164,7 @@ document.querySelector('.nav__link').addEventListener('click', function (e) {
   console.log(e.currentTarget == this);
 
   //stop propagation
-  e.stopPropagation();
+  //   e.stopPropagation();
 });
 
 document.querySelector('.nav__links').addEventListener('click', function (e) {
@@ -150,3 +176,4 @@ document.querySelector('.nav').addEventListener('click', function (e) {
   this.style.backgroundColor = randomColor();
   console.log('nav', e.target, e.currentTarget);
 });
+*/
